@@ -31,11 +31,14 @@ class AdminController extends Controller
      */
     public function store(AdminLoginRequest $request)
     {
+
         $request->authenticate();
-
         $request->session()->regenerate();
+        if (Auth::guard('admin')->check())
+            return redirect()->intended(route('dashboard.admin'));
 
-        return redirect()->intended(route('dashboard.admin', absolute: false));
+        return redirect()->back()->withErrors(['name' => (trans('Dashboard/auth.failed'))]);
+
     }
 
     /**
