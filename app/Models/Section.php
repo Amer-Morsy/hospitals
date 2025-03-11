@@ -9,7 +9,7 @@ class Section extends Model
 {
     use Translatable;
 
-    protected $fillable =['name','description'];
+    protected $fillable =['name'];
 
-    public $translatedAttributes = ['name','description'];
+    public $translatedAttributes = ['name'];
 }
