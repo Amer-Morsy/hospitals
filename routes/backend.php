@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::group(
 
     require __DIR__ . '/auth.php';
 
-######################## dashboard admin ###############################################
+    #################### dashboard admin ###############################################
     Route::get('/dashboard-admin', [DashboardController::class, 'index']);
 
     Route::get('/dashboard/admin', function () {
@@ -34,8 +35,10 @@ Route::group(
 
 
     Route::middleware('auth:admin')->group(function (){
-######################## Sections ###############################################
+        #################### Sections ###############################################
         Route::resource('Sections', SectionController::class);
+        #################### Doctors ###############################################
+        Route::resource('Doctors', DoctorController::class);
 
     });
 
