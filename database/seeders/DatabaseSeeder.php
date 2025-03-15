@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
 //        ]);
 
         $this->call([
-            AdminTableSeeder::class,
             UserTableSeeder::class,
+            AdminTableSeeder::class,
             SectionTableSeeder::class,
+            AppointmentSeeder::class,
             DoctorTableSeeder::class,
             ImageTableSeeder::class,
 
