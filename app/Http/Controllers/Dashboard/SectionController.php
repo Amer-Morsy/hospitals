@@ -18,7 +18,7 @@ class SectionController extends Controller
 
     public function index()
     {
-       return $this->Sections->index();
+        return $this->Sections->index();
     }
 
     public function create()
@@ -33,7 +33,7 @@ class SectionController extends Controller
 
     public function show(string $id)
     {
-        //
+        return $this->Sections->show($id);
     }
 
     public function edit(string $id)
