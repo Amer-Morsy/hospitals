@@ -18,7 +18,8 @@
                     <input type="hidden" id="delete_select_id" name="delete_select_id" value=''>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{trans('Dashboard/sections_trans.Close')}}</button>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">{{trans('Dashboard/sections_trans.Close')}}</button>
                     <button type="submit" class="btn btn-danger">{{trans('Dashboard/sections_trans.submit')}}</button>
                 </div>
             </form>

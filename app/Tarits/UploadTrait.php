@@ -42,7 +42,7 @@ trait UploadTrait
     {
 
         Storage::disk($disk)->delete($path);
-        image::where('id', $id)->where('filename', $filename)->delete();
+        image::where('imageable_id', $id)->delete();
 
     }
 }

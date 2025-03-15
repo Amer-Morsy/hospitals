@@ -18,7 +18,7 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors= Doctor::with('appointments')->get();
         return view('dashboard.doctors.index', compact('doctors'));
     }
 
@@ -42,12 +42,11 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctors->password = Hash::make($request->password);
             $doctors->section_id = $request->section_id;
             $doctors->phone = $request->phone;
-            $doctors->price = $request->price;
             $doctors->status = 1;
             $doctors->save();
             // store trans
             $doctors->name = $request->name;
-            $doctors->appointments = implode(",", $request->appointments);
+            $doctors->appointments()->attach($request->appointments);
             $doctors->save();
 
 
@@ -81,7 +80,18 @@ class DoctorRepository implements DoctorRepositoryInterface
             session()->flash('delete');
             return redirect()->route('Doctors.index');
         } else {
+            // delete selector doctor
+            $delete_select_id = explode(",", $request->delete_select_id);
+            foreach ($delete_select_id as $doctor_id) {
+                $doctor = Doctor::findorfail($doctor_id);
+                if ($doctor->image) {
+                    $this->Delete_attachment('upload_image', 'doctors/' . $doctor->image->filename, $doctor_id, $doctor->image->filename);
+                }
+            }
 
+            Doctor::destroy($delete_select_id);
+            session()->flash('delete');
+            return redirect()->route('Doctors.index');
 
         }
     }

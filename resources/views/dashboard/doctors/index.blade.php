@@ -35,10 +35,11 @@
         <div class="col-xl-12">
             <div class="card mg-b-20">
                 <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{route('Doctors.create')}}" class="btn btn-primary" role="button"
-                           aria-pressed="true">{{trans('doctors.add_doctor')}}</a>
-                    </div>
+
+                    <a href="{{route('Doctors.create')}}" class="btn btn-primary" role="button"
+                       aria-pressed="true">{{trans('doctors.add_doctor')}}</a>
+                    <button type="button" class="btn btn-danger"
+                            id="btn_delete_all">{{trans('doctors.delete_select')}}</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -46,13 +47,13 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th><input name="select_all" id="example-select-all" type="checkbox"/></th>
                                 <th>{{trans('doctors.img')}}</th>
                                 <th>{{trans('doctors.name')}}</th>
                                 <th>{{trans('doctors.email')}}</th>
                                 <th>{{trans('doctors.section')}}</th>
                                 <th>{{trans('doctors.phone')}}</th>
                                 <th>{{trans('doctors.appointments')}}</th>
-                                <th>{{trans('doctors.price')}}</th>
                                 <th>{{trans('doctors.Status')}}</th>
                                 <th>{{trans('doctors.created_at')}}</th>
                                 <th>{{trans('doctors.Processes')}}</th>
@@ -62,6 +63,8 @@
                             @foreach($doctors as $doctor)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td><input type="checkbox" name="delete_select" value="{{$doctor->id}}"
+                                               class="delete_select"></td>
                                     <td>
                                         @if($doctor->image)
                                             <img src="{{Url::asset('dashboard/img/doctors/'.$doctor->image->filename)}}"
@@ -75,8 +78,11 @@
                                     <td>{{ $doctor->email }}</td>
                                     <td>{{ $doctor->section->name}}</td>
                                     <td>{{ $doctor->phone}}</td>
-                                    <td>{{ $doctor->appointments}}</td>
-                                    <td>{{ $doctor->price}}</td>
+                                    <td>
+                                        @foreach($doctor->appointments as $appointment)
+                                            {{ $appointment->name}},
+                                        @endforeach
+                                    </td>
                                     <td>
                                         <div
                                             class="dot-label bg-{{$doctor->status == 1 ? 'success':'danger'}} ml-1"></div>
@@ -85,14 +91,32 @@
 
                                     <td>{{ $doctor->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a class="modal-effect btn btn-sm btn-info"
-                                           href="{{route('Doctors.edit',$doctor->id)}}"><i class="las la-pen"></i></a>
-                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                           data-toggle="modal" href="#delete{{$doctor->id}}"><i
-                                                class="las la-trash"></i></a>
+                                        <div class="dropdown">
+                                            <button aria-expanded="false" aria-haspopup="true"
+                                                    class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown"
+                                                    type="button">{{trans('doctors.Processes')}}<i
+                                                    class="fas fa-caret-down mr-1"></i></button>
+                                            <div class="dropdown-menu tx-13">
+                                                <a class="dropdown-item" href="{{route('Doctors.edit',$doctor->id)}}"><i
+                                                        style="color: #0ba360" class="text-success ti-user"></i>&nbsp;&nbsp;تعديل
+                                                    البيانات</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#delete{{$doctor->id}}"><i
+                                                        class="text-primary ti-key"></i>&nbsp;&nbsp;تغير كلمة المرور</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#delete{{$doctor->id}}"><i
+                                                        class="text-warning ti-back-right"></i>&nbsp;&nbsp;تغير
+                                                    الحالة</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#delete{{$doctor->id}}"><i
+                                                        class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف البيانات</a>
+
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @include('dashboard.doctors.delete')
+                                @include('Dashboard.Doctors.delete_select')
                             @endforeach
                             </tbody>
                         </table>
@@ -132,4 +156,48 @@
     <!--Internal  Notify js -->
     <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
     <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script>
+
+
+
+    <script>
+
+        // Use document.ready instead of $(function() for clarity
+        $(document).ready(function () {
+            // Select All functionality
+            $('[name="select_all"]').on('click', function (e) {
+                try {
+                    const isChecked = e.target.checked;
+                    $('[name="delete_select"]').prop('checked', isChecked);
+                } catch (error) {
+                    console.error('Error in select all functionality:', error);
+                }
+            });
+
+            // Delete All functionality
+            $('#btn_delete_all').on('click', function () {
+                try {
+                    // Get all checked values using map for better performance
+                    const selected = $('[name="delete_select"]:checked')
+                        .map(function () {
+                            return this.value;
+                        })
+                        .get();
+
+                    if (selected.length > 0) {
+                        // Bootstrap modal
+                        $('#delete_select').modal('show');
+                        // Set the selected IDs
+                        $('#delete_select_id').val(selected.join(','));
+                    } else {
+                        // Optional: Add user feedback if no items selected
+                        alert('Please select at least one item to delete');
+                    }
+                } catch (error) {
+                    console.error('Error in delete functionality:', error);
+                }
+            });
+        });
+
+    </script>
+
 @endsection
