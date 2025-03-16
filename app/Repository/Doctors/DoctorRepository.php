@@ -18,7 +18,7 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function index()
     {
-        $doctors= Doctor::with('appointments')->get();
+        $doctors = Doctor::with('appointments')->get();
         return view('dashboard.doctors.index', compact('doctors'));
     }
 
@@ -29,10 +29,8 @@ class DoctorRepository implements DoctorRepositoryInterface
         return view('dashboard.doctors.add', compact('sections', 'appointments'));
     }
 
-
     public function store($request)
     {
-
         DB::beginTransaction();
 
         try {
@@ -63,9 +61,27 @@ class DoctorRepository implements DoctorRepositoryInterface
         }
     }
 
+    public function edit($id)
+    {
+        $sections = Section::all();
+        $appointments = Appointment::all();
+        $doctor = Doctor::findorfail($id);
+        return view('dashboard.doctors.edit', compact('sections', 'appointments', 'doctor'));
+    }
+
     public function update($request)
     {
-        // TODO: Implement update() method.
+        return $request;
+    }
+
+    public function update_password($request)
+    {
+        // TODO: Implement update_password() method.
+    }
+
+    public function update_status($request)
+    {
+        // TODO: Implement update_status() method.
     }
 
     public function destroy($request)

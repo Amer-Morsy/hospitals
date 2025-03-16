@@ -39,12 +39,12 @@ class DoctorController extends Controller
 
     public function edit(string $id)
     {
-        //
+       return $this->Doctors->edit($id);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        return $this->Doctors->update($request);
     }
 
     public function destroy(Request $request)
