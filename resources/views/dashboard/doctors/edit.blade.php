@@ -117,13 +117,11 @@
 
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
                                     <select multiple="multiple" class="testselect2" name="appointments[]">
-                                        @foreach($doctor->appointments as $appointmentDOC)
-                                            <option value="{{$appointmentDOC->id}}" selected>{{$appointmentDOC->name}}</option>
-                                        @endforeach
-
                                         @foreach($appointments as $appointment)
-                                            <option
-                                                value="{{$appointment->id}}">{{$appointment->name}}</option>
+                                            <option value="{{$appointment->id}}"
+                                                {{ $doctor->appointments->contains('id', $appointment->id) ? 'selected' : '' }}>
+                                                {{$appointment->name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

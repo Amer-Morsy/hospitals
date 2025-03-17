@@ -12,7 +12,7 @@ class Doctor extends Model
     use HasFactory;
 
     public $fillable= ['email','email_verified_at','password','phone','name','section_id','status'];
-    public $translatedAttributes = ['name', 'appointments'];
+    public $translatedAttributes = ['name'];
 
     /**
      * Get the Doctor's image.

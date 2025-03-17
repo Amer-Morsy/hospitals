@@ -101,10 +101,10 @@
                                                         style="color: #0ba360" class="text-success ti-user"></i>&nbsp;&nbsp;تعديل
                                                     البيانات</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
-                                                   data-target="#delete{{$doctor->id}}"><i
+                                                   data-target="#update_password{{$doctor->id}}"><i
                                                         class="text-primary ti-key"></i>&nbsp;&nbsp;تغير كلمة المرور</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
-                                                   data-target="#delete{{$doctor->id}}"><i
+                                                   data-target="#update_status{{$doctor->id}}"><i
                                                         class="text-warning ti-back-right"></i>&nbsp;&nbsp;تغير
                                                     الحالة</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
@@ -117,6 +117,8 @@
                                 </tr>
                                 @include('dashboard.doctors.delete')
                                 @include('Dashboard.Doctors.delete_select')
+                                @include('Dashboard.Doctors.update_password')
+                                @include('Dashboard.Doctors.update_status')
                             @endforeach
                             </tbody>
                         </table>

@@ -19,9 +19,7 @@ class DoctorController extends Controller
 
     public function index()
     {
-        $doctors = $this->Doctors->index();
-//        dd($doctors);
-        return view('dashboard.doctors.index', compact('doctors'));
+        return $this->Doctors->index();
     }
 
     public function create()
@@ -49,14 +47,9 @@ class DoctorController extends Controller
         return $this->Doctors->update($request);
     }
 
-    public function destroy(Request $request)
-    {
-        return $this->Doctors->destroy($request);
-    }
-
     public function update_password(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6'
         ]);
@@ -66,9 +59,14 @@ class DoctorController extends Controller
 
     public function update_status(Request $request)
     {
-        $this->validate($request, [
+        $request->validate( [
             'status' => 'required|in:0,1',
         ]);
         return $this->Doctors->update_status($request);
+    }
+
+    public function destroy(Request $request)
+    {
+        return $this->Doctors->destroy($request);
     }
 }
