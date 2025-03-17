@@ -20,4 +20,6 @@ interface DoctorRepositoryInterface
     public function update_status($request);
 
     public function destroy($request);
+
+
 }

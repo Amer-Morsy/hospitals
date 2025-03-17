@@ -31,9 +31,9 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function store($request)
     {
-        DB::beginTransaction();
 
         try {
+            DB::beginTransaction();
 
             $doctors = new Doctor();
             $doctors->email = $request->email;
@@ -42,11 +42,11 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctors->phone = $request->phone;
             $doctors->status = 1;
             $doctors->save();
+
             // store trans
             $doctors->name = $request->name;
             $doctors->appointments()->attach($request->appointments);
             $doctors->save();
-
 
             //Upload img
             $this->verifyAndStoreImage($request, 'photo', 'doctors', 'upload_image', $doctors->id, 'App\Models\Doctor');
@@ -71,18 +71,75 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function update($request)
     {
+
+        try {
+            DB::beginTransaction();
+
+            $doctor = Doctor::findorfail($request->id);
+
+            $doctor->email = $request->email;
+            $doctor->section_id = $request->section_id;
+            $doctor->phone = $request->phone;
+            $doctor->save();
+            // store trans
+            $doctor->name = $request->name;
+            $doctor->save();
+            // update pivot tABLE
+            $doctor->appointments()->sync($request->appointments);
+
+            // update photo
+            if ($request->has('photo')) {
+                // Delete old photo
+                if ($doctor->image) {
+                    $old_img = $doctor->image->filename;
+                    $this->Delete_attachment('upload_image', 'doctors/' . $old_img, $request->id);
+                }
+                //Upload img
+                $this->verifyAndStoreImage($request, 'photo', 'doctors', 'upload_image', $request->id, 'App\Models\Doctor');
+            }
+
+            DB::commit();
+            session()->flash('edit');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
         return $request;
     }
 
     public function update_password($request)
     {
-        // TODO: Implement update_password() method.
+        try {
+            $doctor = Doctor::findorfail($request->id);
+            $doctor->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            session()->flash('edit');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function update_status($request)
     {
-        // TODO: Implement update_status() method.
+        try {
+            $doctor = Doctor::findorfail($request->id);
+            $doctor->update([
+                'status' => $request->status
+            ]);
+
+            session()->flash('edit');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
+
 
     public function destroy($request)
     {
@@ -111,4 +168,6 @@ class DoctorRepository implements DoctorRepositoryInterface
 
         }
     }
+
+
 }
