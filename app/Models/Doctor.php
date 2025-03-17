@@ -11,8 +11,10 @@ class Doctor extends Model
     use Translatable;
     use HasFactory;
 
+
     public $fillable= ['email','email_verified_at','password','phone','name','section_id','status'];
     public $translatedAttributes = ['name'];
+
 
     /**
      * Get the Doctor's image.

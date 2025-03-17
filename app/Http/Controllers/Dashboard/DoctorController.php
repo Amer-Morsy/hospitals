@@ -63,6 +63,7 @@ class DoctorController extends Controller
             'status' => 'required|in:0,1',
         ]);
         return $this->Doctors->update_status($request);
+
     }
 
     public function destroy(Request $request)

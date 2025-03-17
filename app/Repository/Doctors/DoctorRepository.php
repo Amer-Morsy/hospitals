@@ -31,6 +31,7 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function store($request)
     {
+
         try {
             DB::beginTransaction();
 
@@ -70,6 +71,7 @@ class DoctorRepository implements DoctorRepositoryInterface
 
     public function update($request)
     {
+
         try {
             DB::beginTransaction();
 
@@ -104,6 +106,8 @@ class DoctorRepository implements DoctorRepositoryInterface
             DB::rollback();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+
+        return $request;
     }
 
     public function update_password($request)
