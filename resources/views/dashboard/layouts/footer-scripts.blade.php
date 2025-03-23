@@ -31,3 +31,5 @@
 <!-- custom js -->
 <script src="{{URL::asset('dashboard/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('dashboard/plugins/side-menu/sidemenu.js')}}"></script>
+
+{{--@livewireScripts--}}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 
 Route::group(
@@ -35,18 +36,28 @@ Route::group(
     })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 
 
-    Route::middleware('auth:admin')->group(function (){
+    Route::middleware('auth:admin')->group(function () {
+
         #################### Sections ###############################################
         Route::resource('Sections', SectionController::class);
+
         #################### Doctors ###############################################
         Route::resource('Doctors', DoctorController::class);
         Route::post('update_password', [DoctorController::class, 'update_password'])->name('update_password');
         Route::post('update_status', [DoctorController::class, 'update_status'])->name('update_status');
+
         #################### Service ###############################################
         Route::resource('Service', SingleServiceController::class);
+
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle);
+        });
+
+        Route::view('Add_GroupServices', 'livewire.GroupServices.include_create')
+            ->name('Add_GroupServices');
+
+
     });
-
-
 
 
 });

@@ -84,7 +84,7 @@
                     <li><a class="slide-item"
                            href="{{route('Service.index')}}">{{trans('main-sidebar_trans.Single_service')}}</a></li>
                     <li><a class="slide-item"
-                           href="{{ url('/' . $page='darggablecards') }}">{{trans('main-sidebar_trans.group_services')}}</a>
+                           href="{{ route('Add_GroupServices') }}">{{trans('main-sidebar_trans.group_services')}}</a>
                     </li>
                     <li><a class="slide-item"
                            href="{{ url('/' . $page='contacts') }}">{{trans('main-sidebar_trans.Insurance')}}</a></li>
