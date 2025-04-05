@@ -51,7 +51,7 @@
                                     <label>المبلغ</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" name="credit" type="number">
+                                    <input class="form-control" name="credit" type="number" step="0.01">
                                 </div>
                             </div>
 
