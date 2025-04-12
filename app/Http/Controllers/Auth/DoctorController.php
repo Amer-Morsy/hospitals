@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminLoginRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\DoctorLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class DoctorController extends Controller
 {
 
-    public function store(AdminLoginRequest $request)
+    public function store(DoctorLoginRequest $request)
     {
 
         $request->authenticate();
         $request->session()->regenerate();
-        if (Auth::guard('admin')->check())
-            return redirect()->intended(route('dashboard.admin'));
+        if (Auth::guard('doctor')->check())
+            return redirect()->intended(route('dashboard.doctor'));
 
         return redirect()->back()->withErrors(['name' => (trans('Dashboard/auth.failed'))]);
 
@@ -26,7 +25,7 @@ class AdminController extends Controller
 
     public function destroy(Request $request)
     {
-        Auth::guard('admin')->logout();
+        Auth::guard('doctor')->logout();
 
         $request->session()->invalidate();
 

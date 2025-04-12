@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Auth\DoctorController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -62,12 +63,22 @@ Route::middleware('auth')->group(function () {
 });
 
 ################# admin #########
-Route::group(['prefix'=>'admin', 'middleware'=>'guest'],function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'guest'], function () {
     Route::post('login', [AdminController::class, 'store'])->name('login.admin');
 });
 
-Route::group(['prefix'=>'admin', 'middleware'=>'auth:admin'],function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('logout', [AdminController::class, 'destroy'])
         ->name('logout.admin');
+});
+
+################# doctor #########
+Route::group(['prefix' => 'doctor', 'middleware' => 'guest'], function () {
+    Route::post('login', [DoctorController::class, 'store'])->name('login.doctor');
+});
+
+Route::group(['prefix' => 'doctor', 'middleware' => 'auth:doctor'], function () {
+    Route::post('logout', [DoctorController::class, 'destroy'])
+        ->name('logout.doctor');
 });
 

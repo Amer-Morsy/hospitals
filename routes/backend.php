@@ -98,13 +98,22 @@ Route::group(
 
         //############################# Group_invoices route ##########################################
 
-        Route::view('group_invoices','livewire.Group_invoices.index')->name('group_invoices');
+        Route::view('group_invoices', 'livewire.Group_invoices.index')->name('group_invoices');
 
-        Route::view('group_Print_single_invoices','livewire.Group_invoices.print')->name('group_Print_single_invoices');
+        Route::view('group_Print_single_invoices', 'livewire.Group_invoices.print')->name('group_Print_single_invoices');
 
         //############################# end Group_invoices route ######################################
 
 
     });
+
+
+    //################################ dashboard doctor ########################################
+
+    Route::get('/dashboard/doctor', function () {
+        return view('dashboard.doctor.dashboard');
+    })->middleware(['auth:doctor', 'verified'])->name('dashboard.doctor');
+
+    //################################ end dashboard doctor #####################################
 
 });
