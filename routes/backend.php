@@ -108,12 +108,5 @@ Route::group(
     });
 
 
-    //################################ dashboard doctor ########################################
-
-    Route::get('/dashboard/doctor', function () {
-        return view('dashboard.doctor.dashboard');
-    })->middleware(['auth:doctor', 'verified'])->name('dashboard.doctor');
-
-    //################################ end dashboard doctor #####################################
 
 });

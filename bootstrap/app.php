@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
     Route::middleware('web')
         ->group(base_path('routes/backend.php'));
 
+    Route::middleware('web')
+        ->group(base_path('routes/doctor.php'));
+
 },
     )
     ->withMiddleware(function (Middleware $middleware) {
