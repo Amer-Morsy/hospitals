@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Dashboard_Doctor\DiagnosticController;
 use App\Http\Controllers\doctor\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,10 @@ Route::group(
             //############################# invoices route ##########################################
             Route::resource('invoices', InvoiceController::class);
             //############################# end invoices route ######################################
+
+            //############################# Diagnostics route ##########################################
+            Route::resource('Diagnostics', DiagnosticController::class);
+            //############################# end Diagnostics route ######################################
 
 
         });
