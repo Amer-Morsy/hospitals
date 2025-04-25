@@ -40,11 +40,8 @@
                     <span class="side-menu__label">الكشوفات</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('invoices.index') }}">قائمة الكشوفات</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . $page='chart-flot') }}">Flot Charts</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . $page='chart-chartjs') }}">ChartJS</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . $page='chart-echart') }}">Echart</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . $page='chart-sparkline') }}">Sparkline</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . $page='chart-peity') }}">Chart-peity</a></li>
+                    <li><a class="slide-item" href="{{route('completedInvoices')}}">قائمة الكشوفات المكتملة</a></li>
+                    <li><a class="slide-item" href="{{route('reviewInvoices')}}">قائمة المراجعات</a></li>
                 </ul>
             </li>
 
