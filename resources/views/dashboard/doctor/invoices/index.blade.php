@@ -10,8 +10,10 @@
 
     <link href="{{URL::asset('dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
     <!--Internal  Datetimepicker-slider css -->
-    <link href="{{URL::asset('dashboard/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('dashboard/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}"
+          rel="stylesheet">
+    <link href="{{URL::asset('dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}"
+          rel="stylesheet">
     <link href="{{URL::asset('dashboard/plugins/pickerjs/picker.min.css')}}" rel="stylesheet">
     <!-- Internal Spectrum-colorpicker css -->
     <link href="{{URL::asset('dashboard/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
@@ -58,7 +60,9 @@
                                     <td>{{ $loop->iteration}}</td>
                                     <td>{{ $invoice->invoice_date }}</td>
                                     <td>{{ $invoice->Service->name ?? $invoice->Group->name }}</td>
-                                    <td><a href="{{route('Diagnostics.show',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a></td>
+                                    <td>
+                                        <a href="{{route('patient_details',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a>
+                                    </td>
                                     <td>{{ number_format($invoice->price, 2) }}</td>
                                     <td>{{ number_format($invoice->discount_value, 2) }}</td>
                                     <td>{{ $invoice->tax_rate }}%</td>
@@ -76,19 +80,37 @@
 
                                     <td>
                                         <div class="dropdown">
-                                            <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
+                                            <button aria-expanded="false" aria-haspopup="true"
+                                                    class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown"
+                                                    type="button">{{trans('doctors.Processes')}}<i
+                                                    class="fas fa-caret-down mr-1"></i></button>
                                             <div class="dropdown-menu tx-13">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_diagnosis{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_review{{$invoice->id}}"><i class="text-warning far fa-file-alt"></i>&nbsp;&nbsp;اضافة مراجعة </a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;تحويل الي الاشعة</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;تحويل الي المختبر</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف البيانات</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#add_diagnosis{{$invoice->id}}"><i
+                                                        class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة
+                                                    تشخيص </a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#add_review{{$invoice->id}}"><i
+                                                        class="text-warning far fa-file-alt"></i>&nbsp;&nbsp;اضافة
+                                                    مراجعة </a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#xray_conversion{{$invoice->id}}"><i
+                                                        class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;تحويل الي
+                                                    الاشعة </a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#update_status"><i
+                                                        class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;تحويل الي
+                                                    المختبر</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                   data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف
+                                                    البيانات</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
                                 @include('Dashboard.Doctor.invoices.add_diagnosis')
                                 @include('Dashboard.Doctor.invoices.add_review')
+                                @include('Dashboard.Doctor.invoices.xray_conversion')
                             @endforeach
                             </tbody>
                         </table>
@@ -135,9 +157,7 @@
     <script src="{{URL::asset('dashboard/js/form-elements.js')}}"></script>
 
     <script>
-        $('#review_date').datetimepicker({
-
-        })
+        $('#review_date').datetimepicker({})
     </script>
 
 @endsection
