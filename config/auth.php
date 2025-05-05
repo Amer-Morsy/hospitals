@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'doctors',
         ],
+        'ray_employee' => [
+            'driver' => 'session',
+            'provider' => 'ray_employees',
+        ],
     ],
 
     /*
@@ -79,6 +83,10 @@ return [
         'doctors' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Doctor::class),
+        ],
+        'ray_employees' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\RayEmployee::class),
         ],
 
         // 'users' => [

@@ -302,14 +302,16 @@
                             <form method="POST" action="{{ route('logout.user') }}">
                                 @elseif(auth('admin')->check())
                                     <form method="POST" action="{{ route('logout.admin') }}">
-                                        @else
+                                        @elseif(auth('doctor')->check())
                                             <form method="POST" action="{{ route('logout.doctor') }}">
-                                                @endif
-                                                @csrf
-                                                <a class="dropdown-item" href="#"
-                                                   onclick="event.preventDefault();
+                                                @else
+                                                    <form method="POST" action="{{ route('logout.ray_employee') }}">
+                                                        @endif
+                                                        @csrf
+                                                        <a class="dropdown-item" href="#"
+                                                           onclick="event.preventDefault();
                                         this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
-                                            </form>
+                                                    </form>
                     </div>
 
                 </div>

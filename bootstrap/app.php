@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
     Route::middleware('web')
         ->group(base_path('routes/doctor.php'));
 
+    Route::middleware('web')
+        ->group(base_path('routes/ray_employee.php'));
+
 },
     )
     ->withMiddleware(function (Middleware $middleware) {
