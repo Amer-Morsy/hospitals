@@ -3,13 +3,13 @@
     <div class="container-fluid">
         <div class="main-header-left ">
             <div class="responsive-logo">
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('dashboard/img/brand/logo.png')}}"
+                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('Dashboard/img/brand/logo.png')}}"
                                                               class="logo-1" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('dashboard/img/brand/logo-white.png')}}"
+                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('Dashboard/img/brand/logo-white.png')}}"
                                                               class="dark-logo-1" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('dashboard/img/brand/favicon.png')}}"
+                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('Dashboard/img/brand/favicon.png')}}"
                                                               class="logo-2" alt="logo"></a>
-                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('dashboard/img/brand/favicon.png')}}"
+                <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('Dashboard/img/brand/favicon.png')}}"
                                                               class="dark-logo-2" alt="logo"></a>
             </div>
             <div class="app-sidebar__toggle" data-toggle="sidebar">
@@ -103,7 +103,7 @@
                         <div class="main-message-list chat-scroll">
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="  drop-img  cover-image  "
-                                     data-image-src="{{URL::asset('dashboard/img/faces/3.jpg')}}">
+                                     data-image-src="{{URL::asset('Dashboard/img/faces/3.jpg')}}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -116,7 +116,7 @@
                             </a>
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="drop-img cover-image"
-                                     data-image-src="{{URL::asset('dashboard/img/faces/2.jpg')}}">
+                                     data-image-src="{{URL::asset('Dashboard/img/faces/2.jpg')}}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -129,7 +129,7 @@
                             </a>
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="drop-img cover-image"
-                                     data-image-src="{{URL::asset('dashboard/img/faces/9.jpg')}}">
+                                     data-image-src="{{URL::asset('Dashboard/img/faces/9.jpg')}}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -142,7 +142,7 @@
                             </a>
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="drop-img cover-image"
-                                     data-image-src="{{URL::asset('dashboard/img/faces/12.jpg')}}">
+                                     data-image-src="{{URL::asset('Dashboard/img/faces/12.jpg')}}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -155,7 +155,7 @@
                             </a>
                             <a href="#" class="p-3 d-flex border-bottom">
                                 <div class="drop-img cover-image"
-                                     data-image-src="{{URL::asset('dashboard/img/faces/5.jpg')}}">
+                                     data-image-src="{{URL::asset('Dashboard/img/faces/5.jpg')}}">
                                     <span class="avatar-status bg-teal"></span>
                                 </div>
                                 <div class="wd-90p">
@@ -282,11 +282,11 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt=""
-                                                                src="{{URL::asset('dashboard/img/faces/6.jpg')}}"></a>
+                                                                src="{{URL::asset('Dashboard/img/faces/6.jpg')}}"></a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3">
                             <div class="d-flex wd-100p">
-                                <div class="main-img-user"><img alt="" src="{{URL::asset('dashboard/img/faces/6.jpg')}}"
+                                <div class="main-img-user"><img alt="" src="{{URL::asset('Dashboard/img/faces/6.jpg')}}"
                                                                 class=""></div>
                                 <div class="mr-3 my-auto">
                                     <h6>Petey Cruiser</h6><span>Premium Member</span>
@@ -298,6 +298,7 @@
                         <a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Inbox</a>
                         <a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Messages</a>
                         <a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> Account Settings</a>
+
                         @if(auth('web')->check())
                             <form method="POST" action="{{ route('logout.user') }}">
                                 @elseif(auth('admin')->check())
@@ -312,8 +313,8 @@
                                                            onclick="event.preventDefault();
                                         this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
                                                     </form>
-                    </div>
 
+                    </div>
                 </div>
                 <div class="dropdown main-header-message right-toggle">
                     <a class="nav-link pr-0" data-toggle="sidebar-left" data-target=".sidebar-left">
