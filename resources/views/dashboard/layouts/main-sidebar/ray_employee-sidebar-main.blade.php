@@ -21,8 +21,8 @@
                         class="avatar-status profile-status bg-green"></span>
                 </div>
                 <div class="user-info">
-                    <h4 class="font-weight-semibold mt-3 mb-0">{{ Auth::user()->name }}</h4>
-                    <span class="mb-0 text-muted">{{ Auth::user()->email }}</span>
+                    <h4 class="font-weight-semibold mt-3 mb-0">{{ auth()->user()->name }}</h4>
+                    <span class="mb-0 text-muted">{{ auth()->user()->email }}</span>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     </svg>
                     <span class="side-menu__label">كشوفات الاشعة </span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('invoices.index') }}">قائمة الكشوفات</a></li>
+                    <li><a class="slide-item" href="{{ route('invoices_ray_employee.index') }}">قائمة الكشوفات</a></li>
                     <li><a class="slide-item" href="{{route('completedInvoices')}}">قائمة الكشوفات المكتملة</a></li>
                     <li><a class="slide-item" href="{{route('reviewInvoices')}}">قائمة المراجعات</a></li>
                 </ul>

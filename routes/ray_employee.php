@@ -15,9 +15,14 @@ Route::group(
         return view('Dashboard.dashboard_RayEmployee.dashboard');
     })->middleware(['auth:ray_employee'])->name('dashboard.ray_employee');
 
-    Route::get('invoices', [InvoiceController::class,'index'])->name('invoices.index');
+    Route::middleware(['auth:ray_employee'])->group(function () {
+
+        //############################# invoices route ##########################################
+        Route::resource('invoices_ray_employee', InvoiceController::class);
+        //############################# end invoices route ######################################
 
 
-    require __DIR__ . '/auth.php';
+    });
+
 
 });
