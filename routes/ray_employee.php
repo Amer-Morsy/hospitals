@@ -10,7 +10,6 @@ Route::group(
     ], function () {
 
 
-
     Route::get('/dashboard/ray_employee', function () {
         return view('Dashboard.dashboard_RayEmployee.dashboard');
     })->middleware(['auth:ray_employee'])->name('dashboard.ray_employee');
@@ -19,6 +18,7 @@ Route::group(
 
         //############################# invoices route ##########################################
         Route::resource('invoices_ray_employee', InvoiceController::class);
+        Route::get('completed_invoices', [InvoiceController::class, 'completed_invoices'])->name('completed_invoices');
         //############################# end invoices route ######################################
 
 

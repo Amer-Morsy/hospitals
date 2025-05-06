@@ -20,6 +20,10 @@ class InvoiceController extends Controller
         return $this->Ray_Employee->index();
     }
 
+    public function completed_invoices()
+    {
+        return $this->Ray_Employee->completed_invoices();
+    }
 
     public function edit($id)
     {
