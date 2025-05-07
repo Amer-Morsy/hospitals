@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RayEmployeeLoginRequest;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LaboratorieEmployeeLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RayEmployeeController extends Controller
+class LaboratorieEmployeeController extends Controller
 {
-    public function store(RayEmployeeLoginRequest $request){
+    public function store(LaboratorieEmployeeLoginRequest $request)
+    {
         $request->authenticate();
         $request->session()->regenerate();
-        if (Auth::guard('ray_employee')->check())
-            return redirect()->intended(route('dashboard.ray_employee'));
+        if (Auth::guard('laboratorie_employee')->check())
+            return redirect()->intended(route('dashboard.laboratorie_employee'));
 
         return redirect()->back()->withErrors(['name' => (trans('Dashboard/auth.failed'))]);
 
@@ -23,7 +23,7 @@ class RayEmployeeController extends Controller
 
     public function destroy(Request $request)
     {
-        Auth::guard('ray_employee')->logout();
+        Auth::guard('laboratorie_employee')->logout();
 
         $request->session()->invalidate();
 
