@@ -157,10 +157,9 @@
                     <path
                         d="M20 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8 19H5v-9h3v9zm7 0h-5v-9h5v9zm5 0h-3v-9h3v9zm0-11H5V5h15v3z"/>
                 </svg>
-                <span class="side-menu__label">Tables</span><i class="angle fe fe-chevron-down"></i></a>
+                <span class="side-menu__label">المختبر</span><i class="angle fe fe-chevron-down"></i></a>
             <ul class="slide-menu">
-                <li><a class="slide-item" href="{{ url('/' . $page='table-basic') }}">Basic Tables</a></li>
-                <li><a class="slide-item" href="{{ url('/' . $page='table-data') }}">Data Tables</a></li>
+                <li><a class="slide-item" href="{{ route('laboratorie_employee.index') }}">قائمة الموظفين</a></li>
             </ul>
         </li>
         <li class="slide">

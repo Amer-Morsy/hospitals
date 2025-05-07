@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AmbulanceController;
+use App\Http\Controllers\Dashboard\LaboratorieEmployeeController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DoctorController;
@@ -88,6 +89,8 @@ Route::group(
         Route::resource('Payment', PaymentAccountController::class);
 
         Route::resource('ray_employee', RayEmployeeController::class);
+
+        Route::resource('laboratorie_employee', LaboratorieEmployeeController::class);
 
         Route::view('group_invoices', 'livewire.Group_invoices.index')->name('group_invoices');
 
