@@ -60,7 +60,9 @@ Route::group(
             Route::get('patient_details/{id}', [PatientDetailsController::class, 'index'])->name('patient_details');
 
 
-
+            Route::get('/404', function () {
+                return view('Dashboard.404');
+            })->name('404');
 
         });
     });
