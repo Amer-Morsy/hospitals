@@ -57,6 +57,8 @@ Route::group(
 
             Route::resource('Laboratories', LaboratorieController::class);
 
+            Route::get('show_laboratorie/{id}', [InvoiceController::class,'showLaboratorie'])->name('show.laboratorie');
+
             Route::get('patient_details/{id}', [PatientDetailsController::class, 'index'])->name('patient_details');
 
 
