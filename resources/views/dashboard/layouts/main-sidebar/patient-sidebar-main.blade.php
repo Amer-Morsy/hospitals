@@ -50,9 +50,10 @@
                     </svg>
                     <span class="side-menu__label">عمليات المريض</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="#">قائمة الفواتير</a></li>
-                    <li><a class="slide-item" href="#">المختبر</a></li>
-                    <li><a class="slide-item" href="#">الاشعة</a></li>
+                    <li><a class="slide-item" href="{{route('invoices.patient')}}">قائمة الفواتير</a></li>
+                    <li><a class="slide-item" href="{{route('laboratories.patient')}}">المختبر</a></li>
+                    <li><a class="slide-item" href="{{route('rays.patient')}}">الاشعة</a></li>
+                    <li><a class="slide-item" href="{{route('payments.patient')}}">المدفوعات</a></li>
                 </ul>
             </li>
         </ul>
