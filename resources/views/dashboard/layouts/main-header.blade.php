@@ -63,18 +63,18 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
-                                <button type="reset" class="btn btn-default">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <button type="submit" class="btn btn-default nav-link resp-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-search">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                    </svg>
-                                </button>
-                            </span>
+                <button type="reset" class="btn btn-default">
+                  <i class="fas fa-times"></i>
+                </button>
+                <button type="submit" class="btn btn-default nav-link resp-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                       class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+              </span>
                         </div>
                     </form>
                 </div>
@@ -83,8 +83,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-mail">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                            </path>
+                            <path
+                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
                         <span class=" pulse-danger"></span></a>
@@ -92,8 +92,8 @@
                         <div class="menu-header-content bg-primary text-right">
                             <div class="d-flex">
                                 <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Messages</h6>
-                                <span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All
-                                    Read</span>
+                                <span
+                                    class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</span>
                             </div>
                             <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">You have 4 unread
                                 messages</p>
@@ -182,27 +182,30 @@
                     <div class="dropdown-menu dropdown-notifications">
                         <div class="menu-header-content bg-primary text-right">
                             <div class="d-flex">
-                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Notifications</h6>
-                                <span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All
-                                    Read</span>
+                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">الاشعارات</h6>
+                                <span
+                                    class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</span>
                             </div>
-                            <p data-count="0"
-                               class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">0</p>
+                            <p data-count="{{App\Models\Notification::CountNotification(auth()->user()->name)->count()}}"
+                               class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">
+                                {{App\Models\Notification::CountNotification(auth()->user()->name)->count()}}</p>
                         </div>
                         <div class="main-notification-list Notification-scroll">
-                            <a class="d-flex p-3 border-bottom" href="#">
-                                <div class="notifyimg bg-pink">
-                                    <i class="la la-file-alt text-white"></i>
-                                </div>
-                                <div class="mr-3">
-                                    <h5 class="notification-label mb-1">New files available</h5>
-                                    <div class="notification-subtext">10 hour ago</div>
-                                </div>
-                                <div class="mr-auto">
-                                    <i class="las la-angle-left text-left text-muted"></i>
-                                </div>
-                            </a>
-
+                            @foreach(App\Models\Notification::where('username',auth()->user()->name)->where('reader_status',0)->get()
+                            as $notification )
+                                <a class="d-flex p-3 border-bottom" href="#">
+                                    <div class="notifyimg bg-pink">
+                                        <i class="la la-file-alt text-white"></i>
+                                    </div>
+                                    <div class="mr-3">
+                                        <h5 class="notification-label mb-1">{{$notification->message}}</h5>
+                                        <div class="notification-subtext">{{$notification->created_at}}</div>
+                                    </div>
+                                    <div class="mr-auto">
+                                        <i class="las la-angle-left text-left text-muted"></i>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
                         <div class="dropdown-footer">
                             <a href="">VIEW ALL</a>
@@ -283,16 +286,16 @@
     var notificationsCount = parseInt(notificationsCountElem.data('count'));
     var notifications = notificationsWrapper.find('h5.notification-label');
 
-    Pusher.logToConsole = true;
-
     var pusher = new Pusher('4d18cd7b6fb5ddc368a7', {
         cluster: 'mt1'
     });
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function (data) {
+    var channel = pusher.subscribe('create-invoice');
+    channel.bind('App\\Events\\CreateInvoice', function (data) {
         var existingNotifications = notifications.html();
-        var newNotificationHtml = `<h5 class="notification-label mb-1">` + data.patient_id + `</h5>`;
+        var newNotificationHtml = `
+<h5 class="notification-label mb-1">` + data.message + data.patient + `</h5>
+<div class="notification-subtext">` + data.created_at + `</div>`;
         notifications.html(newNotificationHtml + existingNotifications);
         notificationsCount += 1;
         notificationsCountElem.attr('data-count', notificationsCount);
