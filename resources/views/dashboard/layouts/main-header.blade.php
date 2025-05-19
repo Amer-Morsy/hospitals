@@ -1,4 +1,8 @@
 <!-- main-header opened -->
+@php
+$notifications = App\Models\Notification::CountNotification(auth()->user()->id)->get();
+@endphp
+
 <div class="main-header sticky side-header nav nav-item">
     <div class="container-fluid">
         <div class="main-header-left ">
@@ -186,9 +190,9 @@
                                 <span
                                     class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</span>
                             </div>
-                            <p data-count="{{App\Models\Notification::CountNotification(auth()->user()->name)->count()}}"
+                            <p data-count="{{App\Models\Notification::CountNotification(auth()->user()->id)->count()}}"
                                class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">
-                                {{App\Models\Notification::CountNotification(auth()->user()->name)->count()}}</p>
+                                {{App\Models\Notification::CountNotification(auth()->user()->id)->count()}}</p>
                         </div>
                         <div class="main-notification-list Notification-scroll">
 
@@ -207,8 +211,7 @@
                                 </a>
                             </div>
 
-                            @foreach(App\Models\Notification::where('username',auth()->user()->name)->where('reader_status',0)->get()
-                            as $notification )
+                            @foreach($notifications as $notification )
                                 <a class="d-flex p-3 border-bottom" href="#">
                                     <div class="notifyimg bg-pink">
                                         <i class="la la-file-alt text-white"></i>
@@ -296,6 +299,8 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 
+<script src="{{asset('js/app.js')}}"></script>
+
 <script>
     var notificationsWrapper = $('.dropdown-notifications');
     var notificationsCountElem = notificationsWrapper.find('p[data-count]');
@@ -305,13 +310,7 @@
     var new_message = notificationsWrapper.find('.new_message');
     new_message.hide();
 
-    var pusher = new Pusher('4d18cd7b6fb5ddc368a7', {
-        cluster: 'mt1'
-    });
-
-    var channel = pusher.subscribe('create-invoice');
-    channel.bind('App\\Events\\CreateInvoice', function (data) {
-
+    Echo.private('create-invoice.{{ auth()->user()->id }}').listen('.create-invoice', (data) => {
         var newNotificationHtml = `
        <h4 class="notification-label mb-1">` + data.message + data.patient + `</h4>
        <div class="notification-subtext">` + data.created_at + `</div>`;
