@@ -51,3 +51,4 @@
 <script src="{{URL::asset('Dashboard/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('Dashboard/js/table-data.js')}}"></script>
+
