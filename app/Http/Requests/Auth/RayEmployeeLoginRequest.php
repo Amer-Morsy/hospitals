@@ -4,6 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -38,7 +39,17 @@ class RayEmployeeLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (!auth('ray_employee')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $data = $this->validated();
+        $email = (string) ($data['email'] ?? '');
+        $password = (string) ($data['password'] ?? '');
+
+        Log::info('RayEmployee authenticate() called', [
+            'email' => $email,
+            'throttle_key' => $this->throttleKey(),
+        ]);
+
+        if (!auth('ray_employee')->attempt(['email' => $email, 'password' => $password], false)) {
+            Log::warning('RayEmployee guard attempt failed', ['email' => $email]);
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -46,6 +57,7 @@ class RayEmployeeLoginRequest extends FormRequest
             ]);
         }
 
+        Log::info('RayEmployee guard attempt succeeded', ['email' => $email]);
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -77,6 +89,8 @@ class RayEmployeeLoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
+        $data = $this->validated();
+        $email = (string) ($data['email'] ?? '');
+        return Str::transliterate(Str::lower($email)) . '|' . (string) request()->ip();
     }
 }

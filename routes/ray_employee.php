@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard_Ray_Employee\InvoiceController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 Route::group(
     [
@@ -15,6 +16,10 @@ Route::group(
     })->middleware(['auth:ray_employee'])->name('dashboard.ray_employee');
 
     Route::middleware(['auth:ray_employee'])->group(function () {
+
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle);
+        });
 
         //############################# invoices route ##########################################
         Route::resource('invoices_ray_employee', InvoiceController::class);

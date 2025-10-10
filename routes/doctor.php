@@ -7,7 +7,7 @@ use App\Http\Controllers\Dashboard_Doctor\PatientDetailsController;
 use App\Http\Controllers\Dashboard_Doctor\RayController;
 use App\Http\Controllers\doctor\InvoiceController;
 use Illuminate\Support\Facades\Route;
-
+use Livewire\Livewire;
 /*
 |--------------------------------------------------------------------------
 | doctor Routes
@@ -43,6 +43,10 @@ Route::group(
 
         Route::prefix('doctor')->group(function () {
 
+            Livewire::setUpdateRoute(function ($handle) {
+                return Route::post('/custom/livewire/update', $handle);
+            });
+
             Route::get('completed_invoices', [InvoiceController::class, 'completedInvoices'])->name('completedInvoices');
 
             Route::get('review_invoices', [InvoiceController::class, 'reviewInvoices'])->name('reviewInvoices');
@@ -68,7 +72,7 @@ Route::group(
 
         });
     });
-    require __DIR__ . '/auth.php';
+
 
 
 });
