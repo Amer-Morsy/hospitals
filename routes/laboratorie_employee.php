@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Dashboard_Laboratorie_Employee\InvoiceController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Route::group(
 
     Route::middleware(['auth:laboratorie_employee'])->group(function () {
 
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/custom/livewire/update', $handle);
+        });
+
         //############################# invoices route ##########################################
         Route::resource('invoices_laboratorie_employee', InvoiceController::class);
         Route::get('completed_invoices', [InvoiceController::class, 'completed_invoices'])->name('completed_invoices');
@@ -44,6 +49,6 @@ Route::group(
 //---------------------------------------------------------------------------------------------------------------
 
 
-    require __DIR__ . '/auth.php';
+
 
 });

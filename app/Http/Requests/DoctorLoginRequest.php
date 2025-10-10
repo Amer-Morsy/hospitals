@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -40,7 +41,19 @@ class DoctorLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! auth('doctor')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $data = $this->validated();
+        $email = (string) ($data['email'] ?? '');
+        $password = (string) ($data['password'] ?? '');
+
+        Log::info('Doctor authenticate() called', [
+            'email' => $email,
+            'throttle_key' => $this->throttleKey(),
+        ]);
+
+        if (! auth('doctor')->attempt(['email' => $email, 'password' => $password], false)) {
+            Log::warning('Doctor guard attempt failed', [
+                'email' => $email,
+            ]);
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -48,6 +61,9 @@ class DoctorLoginRequest extends FormRequest
             ]);
         }
 
+        Log::info('Doctor guard attempt succeeded', [
+            'email' => $email,
+        ]);
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -79,6 +95,9 @@ class DoctorLoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        $data = $this->validated();
+        $email = (string) ($data['email'] ?? '');
+        $lower = Str::lower($email);
+        return Str::transliterate($lower).'|'.(string) request()->ip();
     }
 }

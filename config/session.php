@@ -22,6 +22,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Session Configuration for Multiple Authentication
+    |--------------------------------------------------------------------------
+    */
+    'prefix' => [
+        'patient' => 'patient_session_',
+        'doctor' => 'doctor_session_',
+        'admin' => 'admin_session_',
+        'ray_employee' => 'ray_employee_session_',
+        'laboratorie_employee' => 'laboratorie_employee_session_',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Session Lifetime
     |--------------------------------------------------------------------------
     |
